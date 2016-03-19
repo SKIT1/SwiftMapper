@@ -58,7 +58,7 @@ class SwiftMapperTests: XCTestCase {
         let userJSONString = "{\"username\":\"\(testUsername)\",\"identifier\":\"\(testIdentifier)\",\"photoCount\":\(testPhoto),\"age\":\(testAge),\"drinker\":\(testDrinker),\"smoker\":\(testSmoker), \"arr\":[ \"bla\", true, 42 ], \"dict\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }, \"arrOpt\":[ \"bla\", true, 42 ], \"dictOpt\":{ \"key1\" : \"value1\", \"key2\" : false, \"key3\" : 142 }}"
         let parsedUser = mapper.parse(userJSONString, to: User())
         
-        println(parsedUser.description)
+        print(parsedUser.description)
         
         XCTAssertEqualObjects(testUsername, parsedUser.username, "Username should be the same")
         XCTAssertEqualObjects(testIdentifier, parsedUser.identifier, "Identifier should be the same")

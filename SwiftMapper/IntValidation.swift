@@ -23,11 +23,11 @@ extension Mapper {
 class MinIntValidator : MapperValidator {
     let min: Int
     init(min: Int) { self.min = min }
-    func validate(value: AnyObject) -> Bool { return ((value as Int) >= min) }
+    func validate(value: AnyObject) -> Bool { return ((value as! Int) >= min) }
 }
 
 class MaxIntValidator : MapperValidator {
     let max: Int
     init(max: Int) { self.max = max }
-    func validate(value: AnyObject) -> Bool { return ((value as Int) <= max) }
+    func validate(value: AnyObject) -> Bool { return ((value as! Int) <= max) }
 }

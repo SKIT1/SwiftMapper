@@ -19,7 +19,7 @@ class MappingExecutor<FieldType, ObjectType, CollectionType> {
     }
     
     class func nonOptional(left: (Mapper<ObjectType>, String), inout _ right: FieldType) {
-        return self.inoutExecution(&right, { (inout b: FieldType) in
+        return self.inoutExecution(&right, b: { (inout b: FieldType) in
             if let value: AnyObject = left.0.valueFor(left.1) {
                 for validation in left.0.validations[left.1]! {
                     if !validation.validate(value) {
@@ -28,15 +28,15 @@ class MappingExecutor<FieldType, ObjectType, CollectionType> {
                 }
                 switch FieldType.self {
                 case is Bool.Type:
-                    b = (value as Bool) as FieldType
+                    b = (value as! Bool) as! FieldType
                 case is Int.Type:
-                    b = (value as Int) as FieldType
+                    b = (value as! Int) as! FieldType
                 case is String.Type:
-                    b = (value as String) as FieldType
+                    b = (value as! String) as! FieldType
                 case is Array<CollectionType>.Type:
-                    b = (value as Array<CollectionType>) as FieldType
+                    b = (value as! Array<CollectionType>) as! FieldType
                 case is Dictionary<String, CollectionType>.Type:
-                    b = (value as Dictionary<String, CollectionType>) as FieldType
+                    b = (value as! Dictionary<String, CollectionType>) as! FieldType
                 default:
                     return
                 }
@@ -45,7 +45,7 @@ class MappingExecutor<FieldType, ObjectType, CollectionType> {
     
     class func optional(left: (Mapper<ObjectType>, String), inout _ right: FieldType?) {
         return
-            self.optionalInoutExecution(&right, { (inout b: FieldType?) in
+            self.optionalInoutExecution(&right, b: { (inout b: FieldType?) in
                 if let value: AnyObject = left.0.valueFor(left.1) {
                     for validation in left.0.validations[left.1]! {
                         if !validation.validate(value) {
@@ -54,15 +54,15 @@ class MappingExecutor<FieldType, ObjectType, CollectionType> {
                     }
                     switch FieldType.self {
                     case is String.Type:
-                        b = (value as String) as? FieldType
+                        b = (value as! String) as? FieldType
                     case is Bool.Type:
-                        b = (value as Bool) as? FieldType
+                        b = (value as! Bool) as? FieldType
                     case is Int.Type:
-                        b = (value as Int) as? FieldType
+                        b = (value as! Int) as? FieldType
                     case is Array<CollectionType>.Type:
-                        b = (value as Array<CollectionType>) as? FieldType
+                        b = (value as! Array<CollectionType>) as? FieldType
                     case is Dictionary<String, CollectionType>.Type:
-                        b = (value as Dictionary<String, CollectionType>) as? FieldType
+                        b = (value as! Dictionary<String, CollectionType>) as? FieldType
                     default:
                         b = nil
                         return

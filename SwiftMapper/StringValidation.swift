@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Swift
 
 extension Mapper {
     func longer(length: Int) -> Mapper {
@@ -17,5 +18,6 @@ extension Mapper {
 class LengthStringValidator : MapperValidator {
     let length: Int
     init(length: Int) { self.length = length }
-    func validate(value: AnyObject) -> Bool { return (countElements(value as String) > length) }
+    
+    func validate(value: AnyObject) -> Bool { return (value.length > length) }
 }

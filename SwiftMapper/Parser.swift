@@ -9,25 +9,25 @@
 import Foundation
 
 func asDictionary(json : String) -> [String:AnyObject] {
-    let data : NSData = (json as NSString).dataUsingEncoding(NSUTF8StringEncoding)
-    var error : NSError?
-    let jsonObject = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &error) as NSDictionary
+    let data : NSData = (json as NSString).dataUsingEncoding(NSUTF8StringEncoding)!
+    //var error : NSError?
+    let jsonObject = (try? NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers)) as! NSDictionary
     var result : [String:AnyObject] = [:]
     for (key,value) in jsonObject {
-        let stringKey = key as String
+        let stringKey = key as! String
         switch value {
         case is String:
-            result[stringKey] = value as String
+            result[stringKey] = value as! String
         case is Int:
-            result[stringKey] = value as Int
+            result[stringKey] = value as! Int
         case is Bool:
-            result[stringKey] = value as Bool
+            result[stringKey] = value as! Bool
         case is [AnyObject]:
-            result[stringKey] = value as [AnyObject]
+            result[stringKey] = value as! [AnyObject]
         case is [String:AnyObject]:
-            result[stringKey] = value as [String:AnyObject]
+            result[stringKey] = value as! [String:AnyObject]
         default:
-            println("Value for key \(stringKey): \(value)")
+            print("Value for key \(stringKey): \(value)")
         }
         
     }
